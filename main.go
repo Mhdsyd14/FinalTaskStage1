@@ -24,10 +24,10 @@ type Projek struct{
 	Duration string
 	Description string
 	Technologies []string
-	ReactJs bool
-	NodeJs bool
-	JavaScript bool
-	Golang bool
+	ReactJs string
+	NodeJs string
+	JavaScript string
+	Golang string
 	Image string
 	Author int
 	Email string
@@ -69,6 +69,7 @@ func main() {
 	e.GET("/Register", Register)
 	e.GET("/Login", Login)
 	e.GET("/Welcome", Welcome)
+	e.GET("/ProjectDetail/:id",DetailProject)
 
 	e.POST("/AddProjek",middleware.UploadFile(AddProjek))
 	e.POST("/RegisterAkun",RegisterAkun)
@@ -170,14 +171,13 @@ func Kontak(c echo.Context)error {
 func EditProject(c echo.Context)error {
 	id := c.Param("id")
 
-
 	tmpl,err := template.ParseFiles("Views/EditProject.html")
-
+	
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError,err.Error())
 		
 	}
-
+	
 	idToInt,_ := strconv.Atoi(id)
 
 	ProjectDetail := Projek{}
@@ -187,6 +187,8 @@ func EditProject(c echo.Context)error {
 	if errQuery != nil{
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
+
+
 
 	ProjectDetail.Duration = CountDuration(ProjectDetail.StartDate, ProjectDetail.EndDate)
 
@@ -236,6 +238,60 @@ func ProjectEdit(c echo.Context)error {
 
 
 return c.Redirect(http.StatusMovedPermanently, "/Home")
+}
+
+func DetailProject(c echo.Context)error {
+	id := c.Param("id")
+
+
+	tmpl, err := template.ParseFiles("Views/DetailProject.html")
+
+
+	if err != nil {
+		
+		return c.JSON(http.StatusInternalServerError,err.Error())
+	}
+
+	idToint,_ := strconv.Atoi(id)
+	fmt.Println(idToint)
+
+	ProjectDetail := Projek{}
+	errQuery := connection.Conn.QueryRow(context.Background(),"SELECT * FROM tb_projects WHERE id=$1", idToint).Scan(&ProjectDetail.Id, &ProjectDetail.Name, &ProjectDetail.StartDate, &ProjectDetail.EndDate, &ProjectDetail.Description,  &ProjectDetail.Technologies, &ProjectDetail.Image, &ProjectDetail.Author)
+
+
+	if errQuery != nil {
+		
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	ProjectDetail.Duration = CountDuration(ProjectDetail.StartDate, ProjectDetail.EndDate)
+
+
+	sess, errSess := session.Get("irsyad", c)
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, errSess.Error())
+	}
+
+	if sess.Values["isLogin"] != true {
+		userLoginSession.IsLogin = false
+	} else {
+		userLoginSession.IsLogin = true
+		userLoginSession.Name = sess.Values["name"].(string)
+	}
+
+	
+
+	data := map[string]interface{}{
+		"id" : id,
+		"Project" : ProjectDetail,
+		"startDateString": ProjectDetail.StartDate.Format("2006-01-02"),
+		"endDateString":   ProjectDetail.EndDate.Format("2006-01-02"),
+		
+	}
+
+
+
+	return tmpl.Execute(c.Response(),data)
 }
 
 

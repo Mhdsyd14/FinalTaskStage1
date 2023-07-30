@@ -26,7 +26,12 @@
     >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img src="Aset/Logo Mi.png" alt="Bootstrap" width="30" height="30" />
+          <img
+            src="../Aset/Logo Mi.png"
+            alt="Bootstrap"
+            width="30"
+            height="30"
+          />
         </a>
         <button
           class="navbar-toggler"
@@ -67,47 +72,36 @@
     <section class="w-100 h-100">
       <div class="container p-3 mt-3">
         <div class="text-center">
-          {{ range $index,$item := .Projek }}
-          <h2 class="fw-bold p-5">{{$item.Name}}</h2>
+          <h2 class="fw-bold p-5">{{.Project.Name}}</h2>
         </div>
         <div class="d-flex flex-xl-row flex-column">
           <div class="img-blog mx-lg-5 m-2">
             <img
-              src="Aset/IMG_6801.JPG"
+              src="../Gambar/{{.Project.Image}}"
               style="width: 100%; height: 25em; object-fit: cover"
               alt=""
             />
           </div>
           <div class="fs-6 p-5">
-            <h3 class="fw-bold mb-3">Duration</h3>
+            <h3 class="fw-bold mb-3"></h3>
             <p class>
-              <i class="fa-regular fa-calendar-days fa-2x me-3"></i>
-              12 Desember 2023
+              <i class="fa-regular fa-calendar-days me-3">
+                {{.startDateString}} - {{.endDateString}}</i
+              >
             </p>
-            <p><i class="fa-solid fa-clock fa-2x me-3"></i>4 Bulan</p>
+            <p>
+              <i class="fa-solid fa-clock me-3"> {{.Project.Duration}}</i>
+            </p>
             <h3 class="fw-bold mb-3 me-3">Tehcnologies</h3>
-            <p>
-              <i class="fa-brands fa-react fa-2x me-3"></i> React JS
-
-              <i class="fa-brands fa-node-js fa-2x mx-3"></i> Node JS
-            </p>
-            <p>
-              <i class="fa-brands fa-square-js fa-2x me-3"></i> Javascript
-
-              <i class="fa-brands fa-golang fa-2x mx-3"></i> Golang
-            </p>
+            <div class="d-flex">
+              {{range .Project.Technologies}}
+              <h1><i class="fa-brands fa-{{.}} me-3"></i></h1>
+              {{end}}
+            </div>
           </div>
         </div>
 
-        <div class="text-blog p-lg-5 px-3">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam
-          perferendis, a asperiores nostrum ad deserunt cum voluptatibus
-          molestiae fugit et, officiis saepe quisquam dignissimos esse quaerat
-          deleniti consectetur, sequi atque? Lorem ipsum, dolor sit amet
-          consectetur adipisicing elit. Facere id ipsum odio aliquam, eveniet
-          doloribus assumenda consectetur distinctio iure, ducimus sequi vero
-          fugit quod mollitia, exercitationem corrupti laborum nisi. Reiciendis?
-        </div>
+        <div class="text-blog p-lg-5 px-3">{{.Project.Description}}</div>
       </div>
     </section>
 
