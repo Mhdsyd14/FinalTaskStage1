@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- nav -->
+    <nav
+      class="navbar bg-dark navbar-expand-lg bg-body-tertiary"
+      data-bs-theme="dark"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="../Aset/Logo Mi.png"
+            alt="Bootstrap"
+            width="30"
+            height="30"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="AddProject.html">My Project</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <button class="btn btn-light btn-outline-success" type="submit">
+              Contact Me
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- end nav -->
+    <section class="w-100 vh-100 bg-secondary">
+      <h1 class="p-3 text-center text-white">ADD MY PROJECT</h1>
+      <form
+        class="w-50 mx-auto"
+        action="/EditProjek"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" class="form-control" name="id" value="{{.Id}}" />
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label text-black"
+            >Nama Project</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+            value="{{.Project.Name}}"
+            name="NamaProject"
+          />
+        </div>
+        <div class="row mb-3 d-flex">
+          <div class="col-6">
+            <label for="exampleFormControlInput1" class="form-label text-black"
+              >Tanggal Mulai</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="exampleFormControlInput1"
+              value="{{.startDateString}}"
+              name="TanggalMulai"
+            />
+          </div>
+          <div class="col-6">
+            <label for="exampleFormControlInput1" class="form-label text-black"
+              >Tanggal Akhir</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="exampleFormControlInput1"
+              value="{{.endDateString}}"
+              name="TanggalAkhir"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label text-black"
+            >Deskripsi</label
+          >
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            name="Deskripsi"
+          ></textarea>
+        </div>
+        <div class="row mb-3">
+          <label for="exampleFormControlInput1" class="form-label text-black"
+            >Teknologi</label
+          >
+          <div class="col-6">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="react"
+                id="flexCheckDefault"
+                name="ReactJs"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                React js
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="node-js"
+                id="flexCheckDefault"
+                name="NodeJs"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                NodeJs
+              </label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="square-js"
+                id="flexCheckDefault"
+                name="JavaScript"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                JavaScript
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="golang"
+                id="flexCheckDefault"
+                name="Golang"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Golang
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="exampleFormControlInput1" class="form-label text-black"
+            >Upload Image</label
+          >
+          <input
+            type="file"
+            class="form-control"
+            id="inputGroupFile04"
+            aria-describedby="inputGroupFileAddon04"
+            aria-label="Upload"
+            name="inputGambar"
+          />
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">Submit form</button>
+        </div>
+      </form>
+    </section>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
